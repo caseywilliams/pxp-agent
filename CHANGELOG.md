@@ -433,8 +433,8 @@ This is a maintenance release.
 * [#244](https://github.com/puppetlabs/pxp-agent/pull/244) Add INFO level log message
   when sending a blocking response.
 * [#247](https://github.com/puppetlabs/pxp-agent/pull/247)
-  [#243](https://github.com/puppetlabs/pxp-agent/pull/243)
-  [PCP-143](https://tickets.puppetlabs.com/browse/PCP-172) Acceptance test
+* [#243](https://github.com/puppetlabs/pxp-agent/pull/243)
+* [PCP-143](https://tickets.puppetlabs.com/browse/PCP-172) Acceptance test
   improvements
 
 ## 1.0.0
