@@ -31,6 +31,8 @@ set(LIBRARY_COMMON_SOURCES
     src/modules/echo.cc
     src/modules/ping.cc
     src/modules/task.cc
+    src/modules/command.cc
+    src/util/bolt_module.cc
     src/util/utf8.cc
 )
 
