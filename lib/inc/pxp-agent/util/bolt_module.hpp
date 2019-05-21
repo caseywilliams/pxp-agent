@@ -12,6 +12,7 @@
 namespace PXPAgent {
 namespace Util {
 
+// CommandObject holds collected parameters for leatherman's execution methods
 struct CommandObject {
     std::string executable;
     std::vector<std::string> arguments;
@@ -20,6 +21,7 @@ struct CommandObject {
     std::function<void(size_t)> pid_callback;
 };
 
+// This module is a basis for PXP modules supporting bolt functionality
 class BoltModule : public PXPAgent::Module {
     public:
         explicit BoltModule(std::shared_ptr<ResultsStorage> storage)
@@ -42,14 +44,14 @@ class BoltModule : public PXPAgent::Module {
     protected:
         std::shared_ptr<ResultsStorage> storage_;
 
-        // Construct a CommandObject based on a request
+        // Construct a CommandObject based on an ActionRequest - all inheriting classes must implement this method.
         virtual CommandObject buildCommandObject(const ActionRequest& request) = 0;
 
         // Execute a CommandObject synchronously
-        virtual leatherman::execution::result run(const CommandObject& cmd);
+        virtual leatherman::execution::result run_sync(const CommandObject &cmd);
 
-        // Execute a CommandObject, spawning a new process
-        virtual leatherman::execution::result run_async(const CommandObject& cmd);
+        // Execute a CommandObject asynchronously, spawning a new process
+        virtual leatherman::execution::result run(const CommandObject &cmd);
 
         virtual void callBlockingAction(
                 const ActionRequest& request,

@@ -66,7 +66,7 @@ void BoltModule::processOutputAndUpdateMetadata(PXPAgent::ActionResponse &respon
     }
 }
 
-leatherman::execution::result BoltModule::run(const CommandObject& cmd) {
+leatherman::execution::result BoltModule::run_sync(const CommandObject &cmd) {
     return lth_exec::execute(
             cmd.executable,
             cmd.arguments,
@@ -81,7 +81,7 @@ leatherman::execution::result BoltModule::run(const CommandObject& cmd) {
             });
 }
 
-leatherman::execution::result BoltModule::run_async(const CommandObject& cmd) {
+leatherman::execution::result BoltModule::run(const CommandObject &cmd) {
     return lth_exec::execute(
             cmd.executable,
             cmd.arguments,
@@ -103,7 +103,7 @@ void BoltModule::callBlockingAction(
         const Util::CommandObject &command,
         ActionResponse &response
 ) {
-    auto exec = run(command);
+    auto exec = run_sync(command);
     response.output = ActionOutput { exec.exit_code, exec.output, exec.error };
     processOutputAndUpdateMetadata(response);
 }
@@ -114,7 +114,7 @@ void BoltModule::callNonBlockingAction(
         ActionResponse &response
 ) {
     // TODO: throw if storage_ isn't available
-    auto exec = run_async(command);
+    auto exec = run(command);
     // Stdout / stderr output should be on file; read it
     response.output = storage_->getOutput(request.transactionId(), exec.exit_code);
     processOutputAndUpdateMetadata(response);

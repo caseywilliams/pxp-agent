@@ -142,13 +142,13 @@ static const std::string TASK_WRAPPER_EXECUTABLE { "task_wrapper" };
 // Hard-code interpreters on Windows. On non-Windows, we still rely on permissions and #!
 static const std::map<std::string, std::function<std::pair<std::string,std::vector<std::string>>(std::string)>> BUILTIN_TASK_INTERPRETERS {
 #ifdef _WIN32
-    {".rb",  [](std::string filename) { return {
+    {".rb",  [](std::string filename) { return std::pair<std::string,std::vector<std::string>> {
         "ruby", { filename }
     }; }},
-    {".pp",  [](std::string filename) { return {
+    {".pp",  [](std::string filename) { return std::pair<std::string,std::vector<std::string>> {
         "puppet", { "apply", filename }
     }; }},
-    {".ps1", [](std::string filename) { return {
+    {".ps1", [](std::string filename) { return std::pair<std::string,std::vector<std::string>> {
         "powershell",
         { "-NoProfile", "-NonInteractive", "-NoLogo", "-ExecutionPolicy", "Bypass", "-File", filename }
     }; }}
